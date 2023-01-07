@@ -1,0 +1,26 @@
+From 2b7dacf9292b11faed6e192b10f074c18e575102 Mon Sep 17 00:00:00 2001
+From: michie <tha_michie@hotmail.com>
+Date: Sat, 7 Jan 2023 13:11:14 +0100
+Subject: [PATCH] Make libc++fs vendor available and as a shared lib
+
+Change-Id: I9c5668ab6358a2f87a016674ca2ff5846b7f2d1a
+---
+ Android.bp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Android.bp b/Android.bp
+index 1ce1365ab..d053ee0fa 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -201,6 +201,8 @@ cc_library_static {
+     name: "libc++fs",
+     ramdisk_available: true,
+     recovery_available: true,
++    vendor_available: true,
++    shared_libs: [ "libc++" ],
+     apex_available: [
+         "//apex_available:platform",
+         "com.android.art",
+-- 
+2.34.1
+

@@ -1,0 +1,85 @@
+From fbe3391aeea9e934938d2e96152f8e421e8949e9 Mon Sep 17 00:00:00 2001
+From: michie <tha_michie@hotmail.com>
+Date: Sun, 23 Apr 2023 13:05:51 +0200
+Subject: [PATCH] Pixelfy
+
+---
+ AndroidProducts.mk                  | 6 +++---
+ lineage_dragon.mk => aosp_dragon.mk | 6 +++---
+ extract-files.sh                    | 2 +-
+ setup-makefiles.sh                  | 2 +-
+ 4 files changed, 8 insertions(+), 8 deletions(-)
+ rename lineage_dragon.mk => aosp_dragon.mk (90%)
+
+diff --git a/AndroidProducts.mk b/AndroidProducts.mk
+index 03da64b..8f8dee5 100644
+--- a/AndroidProducts.mk
++++ b/AndroidProducts.mk
+@@ -15,8 +15,8 @@
+ #
+ 
+ PRODUCT_MAKEFILES := \
+-	$(LOCAL_DIR)/lineage_dragon.mk \
++	$(LOCAL_DIR)/aosp_dragon.mk \
+ 
+ COMMON_LUNCH_CHOICES := \
+-	lineage_dragon-userdebug \
+-	lineage_dragon-eng
++	aosp_dragon-userdebug \
++	aosp_dragon-eng
+diff --git a/lineage_dragon.mk b/aosp_dragon.mk
+similarity index 90%
+rename from lineage_dragon.mk
+rename to aosp_dragon.mk
+index a479f39..c7f10a6 100644
+--- a/lineage_dragon.mk
++++ b/aosp_dragon.mk
+@@ -18,8 +18,8 @@
+ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
+ 
+-# Inherit some common LineageOS stuff.
+-$(call inherit-product, vendor/lineage/config/common_full_tablet_wifionly.mk)
++# Inherit some common AOSP stuff.
++$(call inherit-product, vendor/aosp/config/common_full_tablet_wifionly.mk)
+ 
+ # Inherit from dragon device
+ $(call inherit-product, device/google/dragon/device.mk)
+@@ -33,7 +33,7 @@ TARGET_BOOTANIMATION_HALF_RES := true
+ 
+ ## Device identifier. This must come after all inclusions
+ PRODUCT_DEVICE                := dragon
+-PRODUCT_NAME                  := lineage_dragon
++PRODUCT_NAME                  := aosp_dragon
+ PRODUCT_BRAND                 := Google
+ PRODUCT_MODEL                 := Pixel C
+ PRODUCT_MANUFACTURER          := google
+diff --git a/extract-files.sh b/extract-files.sh
+index 3d6a4c3..ff1ced0 100755
+--- a/extract-files.sh
++++ b/extract-files.sh
+@@ -26,7 +26,7 @@ if [[ ! -d "$MY_DIR" ]]; then MY_DIR="$PWD"; fi
+ 
+ MK_ROOT="$MY_DIR"/../../..
+ 
+-HELPER="$MK_ROOT"/vendor/lineage/build/tools/extract_utils.sh
++HELPER="$MK_ROOT"/vendor/aosp/build/tools/extract_utils.sh
+ if [ ! -f "$HELPER" ]; then
+     echo "Unable to find helper script at $HELPER"
+     exit 1
+diff --git a/setup-makefiles.sh b/setup-makefiles.sh
+index bf7b4cf..d2eed20 100755
+--- a/setup-makefiles.sh
++++ b/setup-makefiles.sh
+@@ -27,7 +27,7 @@ if [[ ! -d "$MY_DIR" ]]; then MY_DIR="$PWD"; fi
+ 
+ MK_ROOT="$MY_DIR"/../../..
+ 
+-HELPER="$MK_ROOT"/vendor/lineage/build/tools/extract_utils.sh
++HELPER="$MK_ROOT"/vendor/aosp/build/tools/extract_utils.sh
+ if [ ! -f "$HELPER" ]; then
+     echo "Unable to find helper script at $HELPER"
+     exit 1
+-- 
+2.37.2
+

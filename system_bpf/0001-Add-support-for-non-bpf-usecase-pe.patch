@@ -1,0 +1,37 @@
+From c1323e2220282b16e72ca3997cc5f94515907332 Mon Sep 17 00:00:00 2001
+From: michie <tha_michie@hotmail.com>
+Date: Sun, 23 Apr 2023 16:43:02 +0200
+Subject: [PATCH] Add-support-for-non-bpf-usecase-pe
+
+Change-Id: Iff943f66d073249b8cd2937e334bd7b6d6032c5d
+---
+ bpfloader/BpfLoader.cpp | 13 -------------
+ 1 file changed, 13 deletions(-)
+
+diff --git a/bpfloader/BpfLoader.cpp b/bpfloader/BpfLoader.cpp
+index bc72811..b1d47c6 100644
+--- a/bpfloader/BpfLoader.cpp
++++ b/bpfloader/BpfLoader.cpp
+@@ -186,19 +186,6 @@ int main(int argc, char** argv) {
+         createSysFsBpfSubDir(location.prefix);
+     }
+ 
+-    // Load all ELF objects, create programs and maps, and pin them
+-    for (const auto& location : locations) {
+-        if (loadAllElfObjects(location) != 0) {
+-            ALOGE("=== CRITICAL FAILURE LOADING BPF PROGRAMS FROM %s ===", location.dir);
+-            ALOGE("If this triggers reliably, you're probably missing kernel options or patches.");
+-            ALOGE("If this triggers randomly, you might be hitting some memory allocation "
+-                  "problems or startup script race.");
+-            ALOGE("--- DO NOT EXPECT SYSTEM TO BOOT SUCCESSFULLY ---");
+-            sleep(20);
+-            return 2;
+-        }
+-    }
+-
+     if (android::base::SetProperty("bpf.progs_loaded", "1") == false) {
+         ALOGE("Failed to set bpf.progs_loaded property");
+         return 1;
+-- 
+2.37.2
+
